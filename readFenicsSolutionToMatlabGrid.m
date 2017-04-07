@@ -3,6 +3,8 @@ close all
 
 load('po2FenicsSolution.mat');
 d = 5;
+seed = 3;
+noise_std = 3;
 filename = 'testgrid';
 
 % Stop doing things
@@ -47,6 +49,11 @@ for i = 1:Ny
     end
 end
 
+
+rng(seed);
+P_noisy = normrnd(P, noise_std);
+
+figure(1)
 imagesc(Hx, Hy, P, [0, max(P(:))])
 title('\textbf{Ground truth model data}', 'Interpreter', 'latex')
 xlabel(['$x\, [',num2str(d),' \mu m]$'], 'Interpreter', 'latex');
@@ -56,4 +63,14 @@ h = colorbar;
 xlabel(h,'$\mathrm{pO_2}$ [mmHg]', 'Interpreter', 'latex')
 set(gca, 'fontsize', 16);   
 
-save(filename, 'P', 'r', 'd', 'Hx', 'Hy', 'M_true', 'p_ves', 'r_ves', 'corners', 'hole_coor', 'Nx', 'Ny', 'Nxy')
+figure(2)
+imagesc(Hx, Hy, P_noisy, [0, max(P(:))])
+title('\textbf{Ground truth model data w/ noise0}', 'Interpreter', 'latex')
+xlabel(['$x\, [',num2str(d),' \mu m]$'], 'Interpreter', 'latex');
+ylabel(['$y\, [',num2str(d),' \mu m]$'], 'Interpreter', 'latex');   
+colormap(makeColorMap([1,1,1], [1,0,0], 1000));
+h = colorbar;
+xlabel(h,'$\mathrm{pO_2}$ [mmHg]', 'Interpreter', 'latex')
+set(gca, 'fontsize', 16); 
+
+save(filename, 'P', 'P_noisy', 'r', 'd', 'Hx', 'Hy', 'M_true', 'p_ves', 'r_ves', 'corners', 'hole_coor', 'Nx', 'Ny', 'Nxy')
