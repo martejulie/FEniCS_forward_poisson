@@ -1,17 +1,17 @@
 clear all
 close all
 
-load('po2grid.mat');
+load('po2FenicsSolution.mat');
 d = 5;
 filename = 'testgrid';
 
 % Stop doing things
-Hx = corners(1,1):d:corners(2,1);
-Hy = corners(1,2):d:corners(2,2);
+Hx = double(corners(1,1)):d:double(corners(2,1));
+Hy = double(corners(1,2)):d:double(corners(2,2));
 [X, Y] = meshgrid(Hx, Hy);
 r = cell(1,2);
-r1 = sqrt((X-double(hole_coor(1)(1)).^2 + (Y-double(hole_coor(1)(2))).^2);
-r2 = sqrt((X-double(hole_coor(2)(1))).^2 + (Y-double(hole_coor(2)(2))).^2);
+r1 = sqrt((X-double(hole_coor(1,1))).^2 + (Y-double(hole_coor(1,2))).^2);
+r2 = sqrt((X-double(hole_coor(2,1))).^2 + (Y-double(hole_coor(2,2))).^2);
 r{1} = r1;
 r{2} = r2;
 
@@ -56,4 +56,4 @@ h = colorbar;
 xlabel(h,'$\mathrm{pO_2}$ [mmHg]', 'Interpreter', 'latex')
 set(gca, 'fontsize', 16);   
 
-save(filename, 'P', 'r', 'd', 'Hx', 'Hy', 'M_true', 'p_ves', 'corners', 'hole_coor')
+save(filename, 'P', 'r', 'd', 'Hx', 'Hy', 'M_true', 'p_ves', 'r_ves', 'corners', 'hole_coor', 'Nx', 'Ny', 'Nxy')
