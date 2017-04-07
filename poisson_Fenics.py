@@ -44,7 +44,6 @@ def solvePoisson(corners, hole_coor, hole_radius, hole_boundary_value, M):
     p_solution = Function(V)
     solve(a==L, p_solution, bcs)
 
-    mesh_coor =  mesh.coordinates()
     p_array = p_solution.vector().array()
     p_array = p_array[vertex_to_dof_map(V)]
 
@@ -63,6 +62,7 @@ if __name__ == "__main__":
     M = 5.33e-3
              
     mesh, p_solution, p_array = solvePoisson(corners, hole_coor, r_ves, p_ves, M)
+    mesh_coor =  mesh.coordinates()
     
     meshfig = plot(mesh, interactive=True)
     #meshfig.write_png("po2fenics_firstMesh")
