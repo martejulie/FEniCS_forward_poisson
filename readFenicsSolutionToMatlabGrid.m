@@ -6,23 +6,18 @@ d = 5;
 filename = 'testgrid';
 
 % Stop doing things
-x0 = corners(1);
-y0 = corners(2);
-x1 = corners(3);
-y1 = corners(4);
-
-Hx = x0:d:x1;
-Hy = y0:d:y1;
+Hx = corners(1,1):d:corners(2,1);
+Hy = corners(1,2):d:corners(2,2);
 [X, Y] = meshgrid(Hx, Hy);
 r = cell(1,2);
-r1 = sqrt((X-double(center1(1))).^2 + (Y-double(center1(2))).^2);
-r2 = sqrt((X-double(center2(1))).^2 + (Y-double(center2(2))).^2);
+r1 = sqrt((X-double(hole_coor(1)(1)).^2 + (Y-double(hole_coor(1)(2))).^2);
+r2 = sqrt((X-double(hole_coor(2)(1))).^2 + (Y-double(hole_coor(2)(2))).^2);
 r{1} = r1;
 r{2} = r2;
 
 Nx = length(Hx);
 Ny = length(Hy);
-Nxy = length(xyvec);
+Nxy = length(mesh_coor);
 P = NaN(Ny, Nx);
 
 for i = 1:Ny
@@ -37,8 +32,8 @@ for i = 1:Ny
             myindex = 0;
             mytotdifference = 10000;
             for k = 1:Nxy
-                xs = xyvec(k,1);
-                ys = xyvec(k,2);
+                xs = mesh_coor(k,1);
+                ys = mesh_coor(k,2);
                 xixs = abs(xi-xs);
                 yjys = abs(yj-ys);
                 totdifference = xixs + yjys;
@@ -46,7 +41,7 @@ for i = 1:Ny
                     myindex = k;
                     mytotdifference = totdifference;                
                 end
-            P(i,j) = cvec(myindex);
+            P(i,j) = p_array(myindex);
             end
         end
     end
@@ -61,4 +56,4 @@ h = colorbar;
 xlabel(h,'$\mathrm{pO_2}$ [mmHg]', 'Interpreter', 'latex')
 set(gca, 'fontsize', 16);   
 
-save(filename, 'd', 'Hx', 'Hy', 'P', 'r', 'M_true', 'corners')
+save(filename, 'P', 'r', 'd', 'Hx', 'Hy', 'M_true', 'p_ves', 'corners', 'hole_coor')
