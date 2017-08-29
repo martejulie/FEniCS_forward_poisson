@@ -29,12 +29,12 @@ def solvePoisson(corners, hole_coor, hole_radius, hole_boundary_value, M):
 
     def boundary1(x, on_boundary):
         r = np.sqrt((x[0]-hole_coor[0][0])**2 + (x[1]-hole_coor[0][1])**2)
-        b = ((r < r_ves+DOLFIN_EPS) and on_boundary)
+        b = ((r < hole_radius+DOLFIN_EPS) and on_boundary)
         return b
 
     def boundary2(x, on_boundary):
         r = np.sqrt((x[0]-hole_coor[1][0])**2 + (x[1]-hole_coor[1][1])**2)
-        b = ((r < r_ves+DOLFIN_EPS) and on_boundary)
+        b = ((r < hole_radius+DOLFIN_EPS) and on_boundary)
         return b
 
     bc1 = DirichletBC(V, hole_boundary_value[0], boundary1)
