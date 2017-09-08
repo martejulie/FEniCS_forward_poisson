@@ -16,7 +16,7 @@ def solvePoisson(corners, hole_coor, hole_radius, hole_boundary_value, M):
 
     domain = r - circle1 - circle2
 
-    resolution = 150
+    resolution = 200
     mesh = generate_mesh(domain, resolution)
 
     V = FunctionSpace(mesh, 'CG', 1)
@@ -29,12 +29,12 @@ def solvePoisson(corners, hole_coor, hole_radius, hole_boundary_value, M):
 
     def boundary1(x, on_boundary):
         r = np.sqrt((x[0]-hole_coor[0][0])**2 + (x[1]-hole_coor[0][1])**2)
-        b = ((r < hole_radius+DOLFIN_EPS) and on_boundary)
+        b = ((r < hole_radius+5) and on_boundary)
         return b
 
     def boundary2(x, on_boundary):
         r = np.sqrt((x[0]-hole_coor[1][0])**2 + (x[1]-hole_coor[1][1])**2)
-        b = ((r < hole_radius+DOLFIN_EPS) and on_boundary)
+        b = ((r < hole_radius+5) and on_boundary)
         return b
 
     bc1 = DirichletBC(V, hole_boundary_value[0], boundary1)
@@ -54,12 +54,22 @@ if __name__ == "__main__":
 
     filename = 'po2FenicsSolution.mat'
 
-    corners = [[0, 0], [200, 200]]
-    hole_coor = [[75., 75.], [125., 160.]]
+    #corners = [[0, 0], [184, 216]]
+    #hole_coor = [[72., 112.], [128., 56.]]
+
+    #r_ves = 2.
+    #p_ves = [81., 85.]
+    #M = 4.86e-3
+
+    corners = [[0, 0], [800, 800]]
+    hole_coor = [[300., 300.], [500., 500.]]
+    #corners = [[-400, -400], [400, 400]]
+    #hole_coor = [[-100., -100.], [100., 100.]]
 
     r_ves = 6.
-    p_ves = [70., 60.]
-    M = 5.33e-3
+    p_ves = [80., 80.]
+    M = 3.54e-4
+    #M = 3.54e-6
              
     mesh, p_solution, p_array = solvePoisson(corners, hole_coor, r_ves, p_ves, M)
     mesh_coor =  mesh.coordinates()

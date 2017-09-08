@@ -1,13 +1,12 @@
 clear all
 close all
 
-load('po2FenicsSolution.mat');
-d = 5;
-seed = 3;
-noise_std = 3;
-filename = 'testgrid';
+load('oneVesselFenics.mat');
+saveasfilename = 'oneVesselGrid_d10';
+d = 10;
 
 % Stop doing things
+hole_coor = uint8(hole_coor./d)*d;
 Hx = double(corners(1,1)):d:double(corners(2,1));
 Hy = double(corners(1,2)):d:double(corners(2,2));
 [X, Y] = meshgrid(Hx, Hy);
@@ -42,16 +41,24 @@ for i = 1:Ny
                 if totdifference < mytotdifference
                     myindex = k;
                     mytotdifference = totdifference;                
-                end
-            P(i,j) = p_array(myindex);
+                end            
             end
+            P(i,j) = p_array(myindex);
         end
     end
 end
 
+% Dette tar vekk for mye. Du må trekke fra gjennomsnittet av alle SE.
+% Hvordan fant vi 3? Den egentlig verdien er 3.2754. Se i notater.
+% mydiff = p_noisy - Psm.
+% Fjern største verdi n_åre ganger. Dette er en outlier.
+% std(mydiff(:)) = 3.2754
+%P_noisy = normrnd(P, 3.2754-mean(SE(:)));
+%rng(seed2);
+%P_noisy = normrnd(P, SE);
 
-rng(seed);
-P_noisy = normrnd(P, noise_std);
+rng(1);
+P_noisy = normrnd(P, 3);
 
 figure(1)
 imagesc(Hx, Hy, P, [0, max(P(:))])
@@ -65,7 +72,7 @@ set(gca, 'fontsize', 16);
 
 figure(2)
 imagesc(Hx, Hy, P_noisy, [0, max(P(:))])
-title('\textbf{Ground truth model data w/ noise0}', 'Interpreter', 'latex')
+title('\textbf{Ground truth model data w/ noise}', 'Interpreter', 'latex')
 xlabel(['$x\, [',num2str(d),' \mu m]$'], 'Interpreter', 'latex');
 ylabel(['$y\, [',num2str(d),' \mu m]$'], 'Interpreter', 'latex');   
 colormap(makeColorMap([1,1,1], [1,0,0], 1000));
@@ -73,4 +80,4 @@ h = colorbar;
 xlabel(h,'$\mathrm{pO_2}$ [mmHg]', 'Interpreter', 'latex')
 set(gca, 'fontsize', 16); 
 
-save(filename, 'P', 'P_noisy', 'r', 'd', 'Hx', 'Hy', 'M_true', 'p_ves', 'r_ves', 'corners', 'hole_coor', 'Nx', 'Ny', 'Nxy')
+save(saveasfilename, 'P', 'P_noisy', 'r', 'd', 'Hx', 'Hy', 'M_true', 'p_ves', 'r_ves', 'corners', 'hole_coor', 'Nx', 'Ny', 'Nxy')
