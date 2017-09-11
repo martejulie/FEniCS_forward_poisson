@@ -45,7 +45,7 @@ if __name__ == "__main__":
 	Ny = 251
 	x = linspace(-125, 125, Nx)
 	y = linspace(-125, 125, Ny)
-	p_grid, r = fenics2meshgrid(p_soltuion, 80, x, y)
+	p_grid, r = fenics2meshgrid(p_solution, 80, x, y)
 
 	plt.imshow(p_grid)
 	plt.show()
