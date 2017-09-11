@@ -39,14 +39,21 @@ def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
 
 if __name__ == "__main__":
 
-	filename = "circleMesh_res200_d1"	
+	filename = "circleMesh_res200_d10"	
 	M = 1.14e-3
 	resolution = 200
 	p_solution = solvePoisson_circle(200, 6, 80, M, resolution) 
 	plot(p_solution, interactive=True)
 
-	d = 1	
-	N = 251
+#	d = 1	
+#	N = 251
+
+#	d = 5
+#	N = 51
+
+	d = 10
+	N = 26
+	
 	x = linspace(-125, 125, N)
 	y = linspace(-125, 125, N)
 	p_grid, r = fenics2meshgrid(p_solution, 80, x, y)
