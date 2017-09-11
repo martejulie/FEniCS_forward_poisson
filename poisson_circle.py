@@ -39,16 +39,20 @@ def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
 
 if __name__ == "__main__":
 
-	p_solution = solvePoisson_circle(200, 6, 80, 1.14e-3, 200) 
+	filename = "circleMesh_res200_d1"	
+	M = 1.14e-3
+	resolution = 200
+	p_solution = solvePoisson_circle(200, 6, 80, M, resolution) 
 	plot(p_solution, interactive=True)
-	Nx = 251
-	Ny = 251
-	x = linspace(-125, 125, Nx)
-	y = linspace(-125, 125, Ny)
+
+	d = 1	
+	N = 251
+	x = linspace(-125, 125, N)
+	y = linspace(-125, 125, N)
 	p_grid, r = fenics2meshgrid(p_solution, 80, x, y)
 
 	plt.imshow(p_grid)
 	plt.show()
 
-#	sio.savemat(filename, {'P':p_grid, 'R_ves':r_vessel, 'M_true':C, 'P_ves':boundary_value, 'Hx':x, 'Hy':y, 'r':r})
+	sio.savemat(filename, {'P':p_grid, 'r':r, 'M_true':M, 'Hx':x, 'Hy':y})
 
