@@ -2,6 +2,7 @@ from pylab import *
 from fenics import *
 from mshr import *
 import scipy.io as sio
+from fenics2mat import *
 
 def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
 	"""
@@ -39,6 +40,7 @@ if __name__ == "__main__":
 
 	p_solution = solvePoisson_circle(200, 6, 80, 1.14e-3, 200) 
 	plot(p_solution, interactive=True)
+	fenics2mat()
 
 #	Nx = 251
 #	Ny = 251
