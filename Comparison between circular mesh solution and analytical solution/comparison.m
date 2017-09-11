@@ -31,11 +31,17 @@ for i = 2:9
 end
 
 figure(1)
-plot(resolution, meanDifference_d1, '-*')
+plot(resolution, meanDifference_d1, 'r-s')
 hold on
-plot(resolution, meanDifference_d10, '-o')
+plot(resolution, meanDifference_d10, 'b-o')
+title('Mean difference')
+xlabel('Resolution')
+ylabel('Mean difference')
 
 figure(2)
-plot(resolution, maxDifference_d1, '-*')
+plot(resolution, maxDifference_d1, 'r-s')
 hold on
-plot(resolution, maxDifference_d10, '-o')
+plot(resolution, maxDifference_d10, 'b-o')
+title('Max difference')
+xlabel('Resolution')
+ylabel('Max difference')
