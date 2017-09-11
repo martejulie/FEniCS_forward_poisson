@@ -39,17 +39,17 @@ def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
 
 if __name__ == "__main__":
 
-	filename = "circleMesh_res200_d5"	
+	filename = "circleMesh_res300_d1"	
 	M = 1.14e-3
-	resolution = 200
+	resolution = 300
 	p_solution = solvePoisson_circle(200, 6, 80, M, resolution) 
 	plot(p_solution, interactive=True)
 
-#	d = 1	
-#	N = 251
+	d = 1	
+	N = 251
 
-	d = 5
-	N = 51
+#	d = 5
+#	N = 51
 
 #	d = 10
 #	N = 26
@@ -61,5 +61,5 @@ if __name__ == "__main__":
 	plt.imshow(p_grid)
 	plt.show()
 
-	sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d, 'M_true':M, 'Hx':x, 'Hy':y})
+	sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d, 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
 
