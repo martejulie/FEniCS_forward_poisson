@@ -37,30 +37,32 @@ p_solution = Function(V)
 solve(a==L, p_solution, bcs)
 plot(p_solution, interactive=True)
 
-Nx = 251
-Ny = 251
-x = linspace(-125, 125, Nx)
-y = linspace(-125, 125, Ny)
+if __name__ == "__main__":
 
-X,Y = meshgrid(x,y)
-p_grid = zeros([Nx, Ny])
+	Nx = 251
+	Ny = 251
+	x = linspace(-125, 125, Nx)
+	y = linspace(-125, 125, Ny)
 
-for i in range(Nx):
-    for j in range(Ny):
-        x_val = X[i,j]
-        y_val = Y[i,j]
-        point = Point(x_val, y_val)
-        try:
-            p_val = p_solution(point)
-            p_grid[i,j] = p_val
-        except:
-            p_val = boundary_value
-            p_grid[i,j] = boundary_value
+	X,Y = meshgrid(x,y)
+	p_grid = zeros([Nx, Ny])
 
-r = np.sqrt(X**2 + Y**2)
-import matplotlib.pyplot as plt
-plt.imshow(p_grid)
-plt.show()
+	for i in range(Nx):
+	    for j in range(Ny):
+		x_val = X[i,j]
+		y_val = Y[i,j]
+		point = Point(x_val, y_val)
+		try:
+		    p_val = p_solution(point)
+		    p_grid[i,j] = p_val
+		except:
+		    p_val = boundary_value
+		    p_grid[i,j] = boundary_value
 
-filename = "oneVesselReady2Go.mat"
-sio.savemat(filename, {'P':p_grid, 'R_ves':r_vessel, 'M_true':C, 'P_ves':boundary_value, 'Hx':x, 'Hy':y, 'r':r})
+	r = np.sqrt(X**2 + Y**2)
+	import matplotlib.pyplot as plt
+	plt.imshow(p_grid)
+	plt.show()
+
+	filename = "oneVesselReady2Go.mat"
+	sio.savemat(filename, {'P':p_grid, 'R_ves':r_vessel, 'M_true':C, 'P_ves':boundary_value, 'Hx':x, 'Hy':y, 'r':r})
