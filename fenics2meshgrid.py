@@ -21,7 +21,7 @@ def fenics2meshgrid(data, boundary_value, x, y):
 		except:
 		    data_val = boundary_value
 		    data_grid[i,j] = boundary_value
-		    print "Point found within hole. Value set to ", boundary_value
+		    print "Point found within hole. Value set to", boundary_value
 
 	r = np.sqrt(X**2 + Y**2)
 
