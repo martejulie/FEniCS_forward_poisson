@@ -34,16 +34,17 @@ def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
 	p_solution = Function(V)	
 	solve(a==L, p_solution, bc)
 
-	return p_solution
+	return p_solution, mesh
 
 
 if __name__ == "__main__":
 
-	filename = "circleMesh_res900_d10"	
+	filename = "circleMesh_res900_d2"	
 	M = 1.14e-3
 	resolution = 900
-	p_solution = solvePoisson_circle(200, 6, 80, M, resolution) 
-#	plot(p_solution, interactive=True)
+	p_solution, mesh = solvePoisson_circle(200, 6, 80, M, resolution) 
+	
+	plot(p_solution, interactive=True)
 
 #	d = 1	
 #	N = 251
@@ -51,15 +52,15 @@ if __name__ == "__main__":
 #	d = 5
 #	N = 51
 
-	d = 10
-	N = 26
-	
+#	d = 10
+#	N = 26
+
 	x = linspace(-125, 125, N)
 	y = linspace(-125, 125, N)
 	p_grid, r = fenics2meshgrid(p_solution, 80, x, y)
 
-#	plt.imshow(p_grid)
-#	plt.show()
+	plt.imshow(p_grid)
+	plt.show()
 
 	sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d, 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
 
