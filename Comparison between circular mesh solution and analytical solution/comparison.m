@@ -30,6 +30,8 @@ colormap(makeColorMap([1,1,1], [1,0,0], 1000));
 h = colorbar; axis xy;
 xlabel(h,'$\mathrm{P_{anal}}$', 'Interpreter', 'latex')
 
+
+
 % ******************************************
 % Second derivatives.
 % Ground truth second derivative is M_true.
@@ -40,7 +42,7 @@ del2P_anal = 4*del2(P_anal, double(d));
 epsilon = (del2P - M_true) ./ M_true;
 epsilon_anal = (del2P_anal - M_true) ./ M_true;
 
-figure(3);        
+figure(4);        
 del2P(r < 20) = 0;             
 imagesc(Hx, Hy, del2P);
 title('\texttt{del2P(P)}', 'Interpreter', 'latex');
@@ -51,20 +53,18 @@ colormap(NegativeEnhancingColormap(1000, [min(del2P(:)) max(del2P(:))], [0 0 1],
 h = colorbar; axis xy;
 xlabel(h, '\texttt{del2P(P)}', 'Interpreter', 'latex');
 
-figure(4);        
+figure(5);        
 del2P_anal(r < 20) = 0;             
 imagesc(Hx, Hy, del2P_anal);
 title('\texttt{del2P(P\_anal)}', 'Interpreter', 'latex');
 xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
 ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
 set(gca, 'fontsize', 16);
-%colormap(NegativeEnhancingColormap(1000, [min(del2P_anal(:)) max(del2P_anal(:))], [0 0 1], [1 0 0], 1));
 colormap(makeColorMap([1,1,1], [1,0,0], 1000));
 h = colorbar; axis xy;
 xlabel(h, '\texttt{del2P(P\_anal)}', 'Interpreter', 'latex');
 
-
-figure(5);
+figure(6);
 epsilon(r < 20) = 0;             
 imagesc(Hx, Hy, epsilon);   
 title(['$(\texttt{del2P(P)}-\mathrm{M_{true}})/\mathrm{M_{true}}$'], 'Interpreter', 'latex'); 
@@ -75,7 +75,7 @@ colormap(NegativeEnhancingColormap(1000, [min(epsilon(:)) max(epsilon(:))], [0 0
 h = colorbar; axis xy;
 xlabel(h, 'epsilon', 'Interpreter', 'latex');
 
-figure(6);
+figure(7);
 epsilon_anal(r < 20) = 0;             
 imagesc(Hx, Hy, epsilon_anal);   
 title(['$(\texttt{del2P(P\_anal)}-\mathrm{M_{true}})/\mathrm{M_{true}}$'], 'Interpreter', 'latex'); 
@@ -90,8 +90,6 @@ xlabel(h, '$\mathrm{epsilon_{anal}}$', 'Interpreter', 'latex');
 % ******************************************
 % Resolution
 % ******************************************
-
-
 
 resolution = zeros(1,7);
 minDifference_d1 = zeros(1,7);
@@ -124,7 +122,7 @@ for i = 2:9
     meanDifference_d10(i-1) = mean(abs(difference(:)));
 end
 
-figure(10)
+figure(8)
 plot(resolution, meanDifference_d1, 'r-s')
 hold on
 plot(resolution, meanDifference_d10, 'b-o')
@@ -132,7 +130,15 @@ title('Mean difference')
 xlabel('Resolution')
 ylabel('Mean difference')
 
-figure(20)
+figure(9)
+plot(resolution, minDifference_d1, 'r-s')
+hold on
+plot(resolution, minDifference_d10, 'b-o')
+title('Min difference')
+xlabel('Resolution')
+ylabel('Min difference')
+
+figure(10)
 plot(resolution, maxDifference_d1, 'r-s')
 hold on
 plot(resolution, maxDifference_d10, 'b-o')
