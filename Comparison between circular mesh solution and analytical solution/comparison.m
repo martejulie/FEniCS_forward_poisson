@@ -37,6 +37,8 @@ xlabel(h,'$\mathrm{P_{anal}}$', 'Interpreter', 'latex')
 
 del2P = 4*del2(P, double(d));
 del2P_anal = 4*del2(P_anal, double(d));
+epsilon = (del2P - M_true) ./ M_true;
+epsilon_anal = (del2P_anal - M_true) ./ M_true;
 
 figure(3);        
 del2P(r < 20) = 0;             
@@ -48,6 +50,42 @@ set(gca, 'fontsize', 16);
 colormap(NegativeEnhancingColormap(1000, [min(del2P(:)) max(del2P(:))], [0 0 1], [1 0 0], 1));
 h = colorbar; axis xy;
 xlabel(h, '\texttt{del2P(P)}', 'Interpreter', 'latex');
+
+figure(4);        
+del2P_anal(r < 20) = 0;             
+imagesc(Hx, Hy, del2P_anal);
+title('\texttt{del2P(P\_anal)}', 'Interpreter', 'latex');
+xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
+ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
+set(gca, 'fontsize', 16);
+%colormap(NegativeEnhancingColormap(1000, [min(del2P_anal(:)) max(del2P_anal(:))], [0 0 1], [1 0 0], 1));
+colormap(makeColorMap([1,1,1], [1,0,0], 1000));
+h = colorbar; axis xy;
+xlabel(h, '\texttt{del2P(P\_anal)}', 'Interpreter', 'latex');
+
+
+figure(5);
+epsilon(r < 20) = 0;             
+imagesc(Hx, Hy, epsilon);   
+title(['$(\texttt{del2P(P)}-\mathrm{M_{true}})/\mathrm{M_{true}}$'], 'Interpreter', 'latex'); 
+xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
+ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
+set(gca, 'fontsize', 16);
+colormap(NegativeEnhancingColormap(1000, [min(epsilon(:)) max(epsilon(:))], [0 0 1], [1 0 0], 1));
+h = colorbar; axis xy;
+xlabel(h, 'epsilon', 'Interpreter', 'latex');
+
+figure(6);
+epsilon_anal(r < 20) = 0;             
+imagesc(Hx, Hy, epsilon_anal);   
+title(['$(\texttt{del2P(P\_anal)}-\mathrm{M_{true}})/\mathrm{M_{true}}$'], 'Interpreter', 'latex'); 
+xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
+ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
+set(gca, 'fontsize', 16);
+colormap(NegativeEnhancingColormap(1000, [min(epsilon_anal(:)) max(epsilon_anal(:))], [0 0 1], [1 0 0], 1));
+h = colorbar; axis xy;
+xlabel(h, '$\mathrm{epsilon_{anal}}$', 'Interpreter', 'latex');
+
 
 % ******************************************
 % Resolution
