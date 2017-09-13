@@ -134,22 +134,28 @@ figure(8)
 plot(resolution, meanDifference_d1, 'r-s')
 hold on
 plot(resolution, meanDifference_d10, 'b-o')
-title('Mean difference')
+title('\texttt{mean(abs(P\_num - P\_anal))}', 'Interpreter', 'latex')
 xlabel('Resolution')
-ylabel('Mean difference')
+ylabel('Mean')
+legend('d = 1', 'd = 10')
+set(gca, 'fontsize', 16);
 
 figure(9)
 plot(resolution, minDifference_d1, 'r-s')
 hold on
 plot(resolution, minDifference_d10, 'b-o')
-title('Min difference')
+title('\texttt{min(abs(P\_num - P\_anal))}', 'Interpreter', 'latex')
 xlabel('Resolution')
-ylabel('Min difference')
+ylabel('Min')
+legend('d = 1', 'd = 10')
+set(gca, 'fontsize', 16);
 
 figure(10)
 plot(resolution, maxDifference_d1, 'r-s')
 hold on
 plot(resolution, maxDifference_d10, 'b-o')
-title('Max difference')
+title('\texttt{max(abs(P\_num - P\_anal))}', 'Interpreter', 'latex')
 xlabel('Resolution')
-ylabel('Max difference')
+ylabel('Max')
+legend('d = 1', 'd = 10')
+set(gca, 'fontsize', 16);
