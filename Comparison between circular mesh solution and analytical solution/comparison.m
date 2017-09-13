@@ -30,7 +30,14 @@ colormap(makeColorMap([1,1,1], [1,0,0], 1000));
 h = colorbar; axis xy;
 xlabel(h,'$\mathrm{P_{anal}}$', 'Interpreter', 'latex')
 
-
+figure(3)
+imagesc(Hx, Hy, difference);
+title('$\mathrm{P_{num}} - \mathrm{P_{anal}}$', 'Interpreter', 'latex');
+xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
+ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
+set(gca, 'fontsize', 16);
+colormap(NegativeEnhancingColormap(1000, [min(difference(:)) max(difference(:))], [0 0 1], [1 0 0], 1));
+h = colorbar; axis xy;
 
 % ******************************************
 % Second derivatives.
