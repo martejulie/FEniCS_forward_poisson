@@ -39,15 +39,20 @@ def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
 
 if __name__ == "__main__":
 
-	filename = "circleMesh_res900_d2"	
+	filename = "circleMesh_res200_d1"	
 	M = 1.14e-3
-	resolution = 900
+	resolution = 200
 	p_solution, mesh = solvePoisson_circle(200, 6, 80, M, resolution) 
+ 
+	meshfig = plot(mesh, interactive=True)
+	meshfig.write_png("firstMesh")	
 	
-	plot(p_solution, interactive=True)
+	fig = plot(p_solution, interactive=True, title="Ground truth pO2 values")
+	fig.write_png("po2fenics_firstMesh")
 
-#	d = 1	
-#	N = 251
+
+	d = 1	
+	N = 251
 
 #	d = 5
 #	N = 51

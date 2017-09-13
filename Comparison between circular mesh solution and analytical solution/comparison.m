@@ -1,3 +1,57 @@
+clear all
+close all
+
+% ******************************************
+% P_num and P_anal
+% ******************************************
+
+load('circleMesh_res200_d1.mat')
+P_anal = 80 + 0.25*M_true*(r.^2 - 6^2) - 0.5*M_true*200^2*log(r./6);
+P_anal(r<6) = 80;
+difference = P - P_anal;
+
+figure(1)
+imagesc(Hx, Hy, P, [0, max(P(:))]);
+title('$\mathrm{P_{num}}$', 'Interpreter', 'latex');
+xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
+ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
+set(gca, 'fontsize', 16);
+colormap(makeColorMap([1,1,1], [1,0,0], 1000));
+h = colorbar; axis xy;
+xlabel(h,'$\mathrm{P_{num}}$', 'Interpreter', 'latex')
+
+figure(2)
+imagesc(Hx, Hy, P_anal, [0, max(P_anal(:))]);
+title('$\mathrm{P_{anal}}$', 'Interpreter', 'latex');
+xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
+ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
+set(gca, 'fontsize', 16);
+colormap(makeColorMap([1,1,1], [1,0,0], 1000));
+h = colorbar; axis xy;
+xlabel(h,'$\mathrm{P_{anal}}$', 'Interpreter', 'latex')
+
+% ******************************************
+% Second derivatives.
+% Ground truth second derivative is M_true.
+% ******************************************
+
+del2P = 4*del2(P, double(d));
+del2P_anal = 4*del2(P_anal, double(d));
+
+figure(3);        
+del2P(r < 20) = 0;             
+imagesc(Hx, Hy, del2P);
+title(['\texttt{del2P(P)}'], 'Interpreter', 'latex');
+xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
+ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
+
+%setStyle( del2P, 'o2c', '2D', d )  
+
+% ******************************************
+% Resolution
+% ******************************************
+
+
 
 resolution = zeros(1,7);
 minDifference_d1 = zeros(1,7);
@@ -30,7 +84,7 @@ for i = 2:9
     meanDifference_d10(i-1) = mean(abs(difference(:)));
 end
 
-figure(1)
+figure(10)
 plot(resolution, meanDifference_d1, 'r-s')
 hold on
 plot(resolution, meanDifference_d10, 'b-o')
@@ -38,7 +92,7 @@ title('Mean difference')
 xlabel('Resolution')
 ylabel('Mean difference')
 
-figure(2)
+figure(20)
 plot(resolution, maxDifference_d1, 'r-s')
 hold on
 plot(resolution, maxDifference_d10, 'b-o')
