@@ -41,11 +41,13 @@ del2P_anal = 4*del2(P_anal, double(d));
 figure(3);        
 del2P(r < 20) = 0;             
 imagesc(Hx, Hy, del2P);
-title(['\texttt{del2P(P)}'], 'Interpreter', 'latex');
+title('\texttt{del2P(P)}', 'Interpreter', 'latex');
 xlabel('$x\, [\mu m]$', 'Interpreter', 'latex');
 ylabel('$y\, [\mu m]$', 'Interpreter', 'latex');
-
-%setStyle( del2P, 'o2c', '2D', d )  
+set(gca, 'fontsize', 16);
+colormap(NegativeEnhancingColormap(1000, [min(del2P(:)) max(del2P(:))], [0 0 1], [1 0 0], 1));
+h = colorbar; axis xy;
+xlabel(h, '\texttt{del2P(P)}', 'Interpreter', 'latex');
 
 % ******************************************
 % Resolution
