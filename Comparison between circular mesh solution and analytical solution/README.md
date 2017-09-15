@@ -2,4 +2,4 @@
 same problem and shows how the two solutions `P_num` and `P_anal` becomes more similar as the resolution in fenics
 increases.
 
-![](figures/resolution-vs-difference.png)
+![](resolution-vs-difference.png)
