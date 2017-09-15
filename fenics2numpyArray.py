@@ -1,7 +1,7 @@
 from fenics import *
 import numpy as np
 
-def fenics2meshgrid(data, boundary_value, x, y):
+def fenics2numpyArray(data, boundary_value, x, y):
 	"""
 
 	"""
