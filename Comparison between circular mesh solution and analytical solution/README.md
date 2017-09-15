@@ -1,8 +1,4 @@
-`poisson_circle.py` solves the equation  
-nabla^2 p = M  
-with boundary conditions  
-dp/dr = 0 when r = r\_domain  
-and  
-p = hole\_boundary\_value when r = r\_hole.
-
+`comparison.m` compares the numerical solution from `poisson_circle.py` to the analytical solution of the
+same problem and shows how the two solution `P_num` and `P_anal` becomes more similar as the resolution in fenics
+increases.
 
