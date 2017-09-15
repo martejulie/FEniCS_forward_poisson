@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
 	x = linspace(-125, 125, N)
 	y = linspace(-125, 125, N)
-	p_grid, r = fenics2numpyArray(p_solution, 80, x, y)
+	p_grid, r = fenics2nparray(p_solution, 80, x, y)
 
 	plt.imshow(p_grid)
 	plt.show()
