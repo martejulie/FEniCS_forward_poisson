@@ -5,7 +5,7 @@ close all
 % P_num and P_anal
 % ******************************************
 
-load('circleMesh_res200_d1.mat')
+load('circleMesh_res900_d1.mat')
 P_anal = 80 + 0.25*M_true*(r.^2 - 6^2) - 0.5*M_true*200^2*log(r./6);
 P_anal(r < 6) = 80;
 difference = P - P_anal;
