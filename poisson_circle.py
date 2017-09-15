@@ -7,7 +7,24 @@ import matplotlib.pyplot as plt
 
 def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
 	"""
-	Docstring
+	Solves the Poisson equation 
+	nabla**2 p = M
+	on a circular mesh with a centered hole
+	
+	Boundary conditions: 
+		dp/dr = 0 when r = r_domain
+		p = hole_boundary_value when r = r_hole
+
+	Arguments:
+		r_domain (int): mesh radius
+		r_hole (int): hole radius
+		hole_boundary_value (int): value of p at r = r_hole
+		M (float): constant
+		resolution (int): resolution of fenics mesh
+
+	Returns:
+		p_solution (fenics solution)
+		mesh (fenics mesh)
 	"""
 
 	big_circle = Circle(Point(0,0), r_domain)
