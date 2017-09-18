@@ -8,6 +8,21 @@ def solvePoisson_rectangle(corners, r_hole, hole_radius, hole_boundary_value, M,
     Solves the Poissons equtaion 
     nabla**2 p = M
     on a rectangle mesh with one or two holes.
+
+    Boundary conditions: 
+	dp/dr = 0 at outer boundaries
+	p = hole_boundary_value at hole boundaries
+    
+    Arguments:
+	corners (array): mesh corners coordinates
+	r_hole (int): hole radius
+	hole_boundary_value (array): value of p at hole boundaries 
+	M (float): constant
+	resolution (int): resolution of fenics mesh
+
+    Returns:
+	p_solution (fenics solution)
+	mesh (fenics mesh)
     """
     
     r = Rectangle(Point(corners[0][0],corners[0][1]), Point(corners[1][0],corners[1][1]))  
@@ -44,7 +59,7 @@ def solvePoisson_rectangle(corners, r_hole, hole_radius, hole_boundary_value, M,
     p_solution = Function(V)
     solve(a==L, p_solution, bcs)
 
-    return mesh, p_solution 
+    return p_solution, mesh
 
 
 if __name__ == "__main__":
