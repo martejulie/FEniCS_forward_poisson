@@ -44,10 +44,7 @@ def solvePoisson_rectangle(corners, r_hole, hole_radius, hole_boundary_value, M,
     p_solution = Function(V)
     solve(a==L, p_solution, bcs)
 
-    p_array = p_solution.vector().array()
-    p_array = p_array[vertex_to_dof_map(V)]
-
-    return mesh, p_solution, p_array
+    return mesh, p_solution 
 
 
 if __name__ == "__main__":
