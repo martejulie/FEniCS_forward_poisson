@@ -3,7 +3,7 @@ from mshr import *
 import numpy as np
 import scipy.io as sio
 
-def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value, M, resolution):
+def solvePoisson_rectangle(corners, r_hole, hole_radius, hole_boundary_value, M, resolution):
     """
     Solves the Poissons equtaion 
     nabla**2 p = M
@@ -13,7 +13,7 @@ def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value,
     r = Rectangle(Point(corners[0][0],corners[0][1]), Point(corners[1][0],corners[1][1]))  
     domain = r
     for i in range(len(hole_coor)):
-        hole = Circle(Point(hole_coor[i][0], hole_coor[i][1]), hole_radius)
+        hole = Circle(Point(hole_coor[i][0], hole_coor[i][1]), r_hole)
 	domain = domain - hole
 
     mesh = generate_mesh(domain, resolution)
@@ -26,10 +26,9 @@ def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value,
     form = (inner(nabla_grad(p), nabla_grad(v)) + M*v )*dx
     (a,L) = system(form)
 
-
     def boundary1(x, on_boundary):
         r = np.sqrt((x[0]-hole_coor[0][0])**2 + (x[1]-hole_coor[0][1])**2)
-        b = ((r < hole_radius+5) and on_boundary)
+        b = ((r < r_hole+5) and on_boundary)
         return b
     bc1 = DirichletBC(V, hole_boundary_value[0], boundary1)
     bcs = [bc1]	
@@ -37,7 +36,7 @@ def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value,
     if len(hole_coor)>1:
         def boundary2(x, on_boundary):
 	    r = np.sqrt((x[0]-hole_coor[1][0])**2 + (x[1]-hole_coor[1][1])**2)
-	    b = ((r < hole_radius+5) and on_boundary)
+	    b = ((r < r_hole+5) and on_boundary)
 	    return b
     	bc2 = DirichletBC(V, hole_boundary_value[1], boundary2)
         bcs.append(bc2)
