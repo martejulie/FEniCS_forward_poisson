@@ -3,7 +3,7 @@ from mshr import *
 import numpy as np
 import scipy.io as sio
 
-def solvePoisson(corners, hole_coor, hole_radius, hole_boundary_value, M):
+def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value, M):
     """
     Solves the Poissons equtaion 
     nabla**2 p = M
