@@ -3,7 +3,7 @@ from mshr import *
 import numpy as np
 import scipy.io as sio
 
-def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value, M):
+def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value, M, resolution):
     """
     Solves the Poissons equtaion 
     nabla**2 p = M
@@ -17,7 +17,6 @@ def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value,
         hole = Circle(Point(hole_coor[i][0], hole_coor[i][1]), hole_radius)
 	domain = domain - hole
 
-    resolution = 200
     mesh = generate_mesh(domain, resolution)
 
     V = FunctionSpace(mesh, 'CG', 1)
