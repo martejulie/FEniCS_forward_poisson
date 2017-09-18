@@ -2,7 +2,7 @@ from pylab import *
 from fenics import *
 from mshr import *
 import scipy.io as sio
-from fenics2meshgrid import *
+from fenics2nparray import *
 import matplotlib.pyplot as plt
 
 def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
