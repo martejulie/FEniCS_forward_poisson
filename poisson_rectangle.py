@@ -7,14 +7,15 @@ def solvePoisson_rectangle(corners, hole_coor, hole_radius, hole_boundary_value,
     """
     Solves the Poissons equtaion 
     nabla**2 p = M
-    on a rectangle mesh with two holes.
+    on a rectangle mesh with holes.
     """
     
-    r = Rectangle(Point(corners[0][0],corners[0][1]), Point(corners[1][0],corners[1][1]))
-    circle1 = Circle(Point(hole_coor[0][0], hole_coor[0][1]), hole_radius)
-    circle2 = Circle(Point(hole_coor[1][0], hole_coor[1][1]), hole_radius)
+    r = Rectangle(Point(corners[0][0],corners[0][1]), Point(corners[1][0],corners[1][1]))  
+    domain = r
 
-    domain = r - circle1 - circle2
+    for i in range(len(hole_coor)):
+        hole = Circle(Point(hole_coor[i][0], hole_coor[i][1]), hole_radius)
+	domain = domain - hole
 
     resolution = 200
     mesh = generate_mesh(domain, resolution)
@@ -71,7 +72,7 @@ if __name__ == "__main__":
     M = 3.54e-4
     #M = 3.54e-6
              
-    mesh, p_solution, p_array = solvePoisson(corners, hole_coor, r_ves, p_ves, M)
+    mesh, p_solution, p_array = solvePoisson_rectangle(corners, hole_coor, r_ves, p_ves, M)
     mesh_coor =  mesh.coordinates()
     
     meshfig = plot(mesh, interactive=True)
@@ -79,4 +80,4 @@ if __name__ == "__main__":
     fig = plot(p_solution, interactive=True, title="Ground truth pO2 values")
     #fig.write_png("po2fenics_firstExample")
 
-    sio.savemat(filename, {'mesh_coor':mesh_coor, 'p_array':p_array, 'corners':corners, 'hole_coor':hole_coor, 'r_ves':r_ves, 'M_true':M, 'p_ves':p_ves, 'corners':corners})
+    #sio.savemat(filename, {'mesh_coor':mesh_coor, 'p_array':p_array, 'corners':corners, 'hole_coor':hole_coor, 'r_ves':r_ves, 'M_true':M, 'p_ves':p_ves, 'corners':corners})
