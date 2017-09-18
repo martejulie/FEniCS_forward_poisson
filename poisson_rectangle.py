@@ -2,6 +2,8 @@ from fenics import *
 from mshr import *
 import numpy as np
 import scipy.io as sio
+from fenics2nparray import *
+import matplotlib.pyplot as plt
 
 def solvePoisson_rectangle(corners, hole_coor, r_hole, hole_boundary_value, M, resolution):
     """
@@ -67,7 +69,7 @@ if __name__ == "__main__":
     filename = 'po2FenicsSolution.mat'
     resolution = 200
 
-    corners = [[0, 0], [1001, 1001]]
+    corners = [[0, 0], [1000, 1000]]
     hole_coor = [[500., 500.]]
 
     r_ves = 6.
@@ -81,5 +83,14 @@ if __name__ == "__main__":
     #meshfig.write_png("po2fenics_firstMesh")
     fig = plot(p_solution, interactive=True, title="Ground truth pO2 values")
     #fig.write_png("po2fenics_firstExample")
+
+    d = 1
+    N = 251
+    x = np.linspace(375, 625, N)
+    y = np.linspace(375, 625, N)
+    p_grid, r = fenics2nparray(p_solution, 80, x, y)
+
+    plt.imshow(p_grid)
+    plt.show()
 
     #sio.savemat(filename, {'mesh_coor':mesh_coor, 'p_array':p_array, 'corners':corners, 'hole_coor':hole_coor, 'r_ves':r_ves, 'M_true':M, 'p_ves':p_ves, 'corners':corners})
