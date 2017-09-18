@@ -65,25 +65,16 @@ def solvePoisson_rectangle(corners, r_hole, hole_radius, hole_boundary_value, M,
 if __name__ == "__main__":
 
     filename = 'po2FenicsSolution.mat'
+    resolution = 200
 
-    #corners = [[0, 0], [184, 216]]
-    #hole_coor = [[72., 112.], [128., 56.]]
-
-    #r_ves = 2.
-    #p_ves = [81., 85.]
-    #M = 4.86e-3
-
-    corners = [[0, 0], [800, 800]]
-    hole_coor = [[300., 300.], [500., 500.]]
-    #corners = [[-400, -400], [400, 400]]
-    #hole_coor = [[-100., -100.], [100., 100.]]
+    corners = [[0, 0], [1001, 1001]]
+    hole_coor = [[500., 500.]]
 
     r_ves = 6.
-    p_ves = [80., 80.]
+    p_ves = 80.
     M = 3.54e-4
-    #M = 3.54e-6
              
-    mesh, p_solution, p_array = solvePoisson_rectangle(corners, hole_coor, r_ves, p_ves, M, 200)
+    p_solution, mesh = solvePoisson_rectangle(corners, hole_coor, r_ves, p_ves, M, resolution)
     mesh_coor =  mesh.coordinates()
     
     meshfig = plot(mesh, interactive=True)
