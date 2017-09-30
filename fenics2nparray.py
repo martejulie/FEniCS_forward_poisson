@@ -1,7 +1,7 @@
 from fenics import *
 import numpy as np
 
-def fenics2nparray(data, boundary_value, x, y):
+def fenics2nparray(data, boundary_value, x, y, center):
 	"""
 	Writes fenics solution to numpy array.
 
@@ -34,6 +34,6 @@ def fenics2nparray(data, boundary_value, x, y):
 		    data_grid[i,j] = boundary_value
 		    print "Point found within hole. Value set to", boundary_value
 
-	r = np.sqrt(X**2 + Y**2)
+	r = np.sqrt((X-center[0][0])**2 + (Y-center[0][1])**2)
 
 	return data_grid, r
