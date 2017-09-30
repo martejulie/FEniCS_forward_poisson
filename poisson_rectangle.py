@@ -66,7 +66,6 @@ def solvePoisson_rectangle(corners, hole_coor, r_hole, hole_boundary_value, M, r
 
 if __name__ == "__main__":
 
-    filename = 'rectangleMesh_res900_d1.mat'
     resolution = 900
 
     corners = [[0, 0], [1000, 1000]]
@@ -84,17 +83,18 @@ if __name__ == "__main__":
 #    fig = plot(p_solution, interactive=True, title="Ground truth pO2 values")
 #    fig.write_png("po2fenics_firstExample_rectangular")
 
-    d = 1
-    N = 251
-    	
-#    d = 10
-#    N = 26	
+    d = [2, 3, 4, 6, 7]
+    N = [126, 85, 64, 43, 37]
+    n = [125, 126, 126, 126, 126]
 
-    x = np.linspace(375, 625, N)
-    y = np.linspace(375, 625, N)
-    p_grid, r = fenics2nparray(p_solution, 80, x, y, hole_coor)
+    for i in range(len(d)):
+	    filename = 'rectangleMesh_res900_d' + str(d[i]) + '.mat'
+	    x = np.linspace(500-n[i], 500+n[i], N[i])
+	    y = np.linspace(500-n[i], 500+n[i], N[i])
+	    
+	    p_grid, r = fenics2nparray(p_solution, 80, x, y, hole_coor)
 
-    plt.imshow(p_grid)
-    plt.show()
-   
-    sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d, 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
+	    plt.imshow(p_grid)
+	    plt.show()
+	   
+	    sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d[i], 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
