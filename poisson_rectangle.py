@@ -69,26 +69,30 @@ if __name__ == "__main__":
     resolution = 900
 
     corners = [[0, 0], [1000, 1000]]
-    hole_coor = [[500., 500.]]
+    hole_coor = [[450., 450.], [550., 550.]]
 
     r_ves = 6.
-    p_ves = [80.]
-    M = 1.33e-4
+    p_ves = [80., 80]
+    M = 2.53e-4
              
     p_solution, mesh = solvePoisson_rectangle(corners, hole_coor, r_ves, p_ves, M, resolution)
     mesh_coor =  mesh.coordinates()
     
-#    meshfig = plot(mesh, interactive=True)
+    meshfig = plot(mesh, interactive=True)
 #    meshfig.write_png("po2fenics_firstMesh_rectangular")
-#    fig = plot(p_solution, interactive=True, title="Ground truth pO2 values")
+    fig = plot(p_solution, interactive=True, title="Ground truth pO2 values")
 #    fig.write_png("po2fenics_firstExample_rectangular")
 
-    d = [2, 3, 4, 6, 7]
-    N = [126, 85, 64, 43, 37]
-    n = [125, 126, 126, 126, 126]
+#    d = [2, 3, 4, 6, 7]
+#    N = [126, 85, 64, 43, 37]
+#    n = [125, 126, 126, 126, 126]
+#
+    d = [10]
+    N = [26]
+    n = [125]	
 
     for i in range(len(d)):
-	    filename = 'rectangleMesh_res900_d' + str(d[i]) + '.mat'
+	    filename = 'twovesselMesh_res900_d' + str(d[i]) + '.mat'
 	    x = np.linspace(500-n[i], 500+n[i], N[i])
 	    y = np.linspace(500-n[i], 500+n[i], N[i])
 	    
