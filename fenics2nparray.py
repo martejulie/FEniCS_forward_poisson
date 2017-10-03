@@ -33,11 +33,14 @@ def fenics2nparray(data, boundary_value, x, y, center):
 		    data_val = boundary_value
 		    data_grid[i,j] = boundary_value
 		    print "Point found within hole. Value set to", boundary_value
-
-	r1 = np.sqrt((X-center[0][0])**2 + (Y-center[0][1])**2)
-	r = [r1]
-	if len(center)>1:
+	
+	if len(center) == 1:
+	    r1 = np.sqrt((X-center[0][0])**2 + (Y-center[0][1])**2)
+	    return data_grid, r1
+        elif len(center) == 2:
+	    r1 = np.sqrt((X-center[0][0])**2 + (Y-center[0][1])**2)
 	    r2 = np.sqrt((X-center[1][0])**2 + (Y-center[1][1])**2)
-   	    r.append(r2)
-		
-	return data_grid, r
+	    return data_grid, r1, r2
+	else:
+	    print "Mesh should only have two holes or less."
+            return 

@@ -72,33 +72,33 @@ if __name__ == "__main__":
     hole_coor = [[450., 450.], [550., 550.]]
 
     r_ves = 6.
-    p_ves = [80., 80]
+    p_ves = [80., 80.]
     M = 2.53e-4
              
     p_solution, mesh = solvePoisson_rectangle(corners, hole_coor, r_ves, p_ves, M, resolution)
     mesh_coor =  mesh.coordinates()
     
     meshfig = plot(mesh, interactive=True)
-#    meshfig.write_png("po2fenics_firstMesh_rectangular")
+#    meshfig.write_png("firstMesh_twovessels")
     fig = plot(p_solution, interactive=True, title="Ground truth pO2 values")
-#    fig.write_png("po2fenics_firstExample_rectangular")
+#    fig.write_png("po2fenics_firstExample_twovessels")
 
-#    d = [2, 3, 4, 6, 7]
-#    N = [126, 85, 64, 43, 37]
-#    n = [125, 126, 126, 126, 126]
-#
-    d = [10]
-    N = [26]
-    n = [125]	
+    d = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    N = [251, 126, 85, 64, 51, 43, 37, 32, 29, 26]
+    n = [125, 125, 126, 126, 125, 126, 126, 124, 126, 125]
+
+#    d = [10]
+#    N = [26]
+#    n = [125]	
 
     for i in range(len(d)):
-	    filename = 'twovesselMesh_res900_d' + str(d[i]) + '.mat'
+	    filename = 'testMesh_res900_d' + str(d[i]) + '.mat'
 	    x = np.linspace(500-n[i], 500+n[i], N[i])
 	    y = np.linspace(500-n[i], 500+n[i], N[i])
 	    
-	    p_grid, r = fenics2nparray(p_solution, 80, x, y, hole_coor)
+	    p_grid, r1, r2 = fenics2nparray(p_solution, 80, x, y, hole_coor)
 
 	    plt.imshow(p_grid)
 	    plt.show()
 	   
-	    sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d[i], 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
+	    sio.savemat(filename, {'P':p_grid, 'r1':r1, 'r2':r2, 'd':d[i], 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
