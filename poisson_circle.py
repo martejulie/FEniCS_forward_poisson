@@ -56,33 +56,30 @@ def solvePoisson_circle(r_domain, r_hole, hole_boundary_value, M, resolution):
 
 if __name__ == "__main__":
 
-	filename = "circleMesh_res200_d1"	
+	resolution = 900
+
 	M = 1.14e-3
-	resolution = 200
 	p_solution, mesh = solvePoisson_circle(200, 6, 80, M, resolution) 
  
 	meshfig = plot(mesh, interactive=True)
-	meshfig.write_png("firstMesh")	
+#	meshfig.write_png("firstMesh")	
 	
 	fig = plot(p_solution, interactive=True, title="Ground truth pO2 values")
-	fig.write_png("po2fenics_firstMesh")
+#	fig.write_png("po2fenics_firstMesh")
 
+	d = [1, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+	N = [251, 26, 25, 22, 21, 19, 19, 17, 17, 15, 15, 14] 
+	n = [125, 125, 132, 126, 130, 126, 135, 128, 136, 126, 133, 130]
 
-	d = 1	
-	N = 251
+	for i in range(len(d)):
 
-#	d = 5
-#	N = 51
+		filename = "circleMesh_res900_d" + str(d[i])
+		x = linspace(-n[i], n[i], N[i])
+		y = linspace(-n[i], n[i], N[i])
+		p_grid, r = fenics2nparray(p_solution, 80, x, y, [[0,0]])
 
-#	d = 10
-#	N = 26
+		plt.imshow(p_grid)
+		plt.show()
 
-	x = linspace(-125, 125, N)
-	y = linspace(-125, 125, N)
-	p_grid, r = fenics2nparray(p_solution, 80, x, y)
-
-	plt.imshow(p_grid)
-	plt.show()
-
-	sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d, 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
+		sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d, 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
 

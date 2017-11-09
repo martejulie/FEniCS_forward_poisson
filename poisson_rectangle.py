@@ -92,7 +92,7 @@ if __name__ == "__main__":
 #    n = [125]	
 
     for i in range(len(d)):
-	    filename = 'testMesh_res900_d' + str(d[i]) + '.mat'
+	    filename = 'twovesselMesh_res900_d' + str(d[i]) + '.mat'
 	    x = np.linspace(500-n[i], 500+n[i], N[i])
 	    y = np.linspace(500-n[i], 500+n[i], N[i])
 	    
