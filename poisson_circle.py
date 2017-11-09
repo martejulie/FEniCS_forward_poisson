@@ -81,5 +81,5 @@ if __name__ == "__main__":
 		plt.imshow(p_grid)
 		plt.show()
 
-		sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d, 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
+		sio.savemat(filename, {'P':p_grid, 'r':r, 'd':d[i], 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution})
 
