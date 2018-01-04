@@ -4,7 +4,6 @@ import numpy as np
 import scipy.io as sio
 from fenics2nparray import *
 import matplotlib.pyplot as plt
-from math import ceil
 
 def solvePoisson_rectangle(corners, hole_coor, r_hole, hole_boundary_value, M, resolution):
     """
@@ -89,8 +88,8 @@ if __name__ == "__main__":
     #fig.write_png("testmesh8")
 
     d_units = np.arange(1, 41)
-    N = ceil(250.0/d_units)+1
-    length_units = ceil(250.0/d_units)*d_units
+    N = np.ceil(250.0/d_units)+1
+    length_units = np.ceil(250.0/d_units)*d_units
     n1_units = np.zeros(len(d_units))
     n2_units = np.zeros(len(d_units))
     for i in range(len(d_units)):
