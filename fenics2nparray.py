@@ -16,8 +16,8 @@ def fenics2nparray(data, boundary_value, x, y, center):
 		r (array): sqrt(X**2 + Y**2)
 	"""
 
-	Nx = len(x)
-	Ny = len(y)	
+	Nx = len(y)
+	Ny = len(x)	
 	X,Y = np.meshgrid(x,y)
 	data_grid = np.zeros([Nx, Ny])
 
