@@ -9,15 +9,13 @@ resolution = 900
 
 corners = [[0, 0], [4, 2]]
 centre = 2
-#hole_coor = [[0.895, 0.895], [1.105, 1.105]]    	
-#hole_coor = [[0.75, 0.75], [1.25, 1.25]]    	
-hole_coor = [[1, 1], [3, 1]]    	
+hole_coor = [[1, 1.1], [2.8, 0.8], [3, 1.7]]    	
 
 R_star = 141.0	
 M_star = 1.0e-3
 
 r_ves = 6/R_star
-p_ves = [80/(M_star*R_star**2), 80/(M_star*R_star**2)]
+p_ves = [80/(M_star*R_star**2), 30/(M_star*R_star**2), 70/(M_star*R_star**2)]
 M = Constant(1)
          
 p_solution, mesh = solvePoisson_rectangle(corners, hole_coor, r_ves, p_ves, M, resolution)
@@ -36,11 +34,11 @@ filename = 'groundTruth_twoVessel'
 x = np.arange(0, 4.0001, d)
 y = np.arange(0, 2.0001, d)
 
-p_grid, r1, r2 = fenics2nparray(p_solution, p_ves[0], x, y, hole_coor) # + r2 if two holes
+p_grid, r1, r2, r3 = fenics2nparray(p_solution, p_ves, r_ves, x, y, hole_coor)
 
 plt.imshow(p_grid)
 plt.show()
 
-sio.savemat(filename, {'P':p_grid, 'r1':r1, 'r2':r2, 'd':d, 'M_star':M_star, 'Hx':x, 'Hy':y, 'res':resolution}) # two holes
+sio.savemat(filename, {'P':p_grid, 'r1':r1, 'r2':r2, 'r3':r3, 'd':d, 'M_star':M_star, 'Hx':x, 'Hy':y, 'res':resolution}) # two holes
 #sio.savemat(filename, {'P':p_grid, 'r':r1, 'd':d[i], 'M_true':M, 'Hx':x, 'Hy':y, 'res':resolution}) # one hole
 

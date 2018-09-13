@@ -9,7 +9,7 @@ def solvePoisson_rectangle(corners, hole_coor, r_hole, hole_boundary_value, M, r
     """
     Solves the Poissons equtaion 
     nabla**2 p = M
-    on a rectangle mesh with one or two holes.
+    on a rectangle mesh with one to three holes.
 
     Boundary conditions: 
 	dp/dr = 0 at outer boundaries
@@ -58,6 +58,14 @@ def solvePoisson_rectangle(corners, hole_coor, r_hole, hole_boundary_value, M, r
     	bc2 = DirichletBC(V, hole_boundary_value[1], boundary2)
         bcs.append(bc2)
 
+    if len(hole_coor)==3:
+        def boundary3(x, on_boundary):
+	    r = np.sqrt((x[0]-hole_coor[2][0])**2 + (x[1]-hole_coor[2][1])**2)
+	    b = ((r < r_hole+0.5) and on_boundary)
+	    return b
+    	bc3 = DirichletBC(V, hole_boundary_value[2], boundary3)
+        bcs.append(bc3)
+
     p_solution = Function(V)
     solve(a==L, p_solution, bcs)
 
@@ -73,7 +81,7 @@ if __name__ == "__main__":
     #hole_coor = [[0.895, 0.895], [1.105, 1.105]]    	
     hole_coor = [[0.75, 0.75], [1.25, 1.25]]    	
 
-    R_star = 140.0	
+    R_star = 141.0	
     M_true = 1.0e-3
 
     r_ves = 6/R_star
